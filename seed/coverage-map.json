@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "description": "Homelab infrastructure audit coverage map",
+  "areas": {
+    "network.vlan": { "last_audited": null, "finding_count": 0 },
+    "network.firewall": { "last_audited": null, "finding_count": 0 },
+    "network.dns": { "last_audited": null, "finding_count": 0 },
+    "network.switches": { "last_audited": null, "finding_count": 0 },
+    "network.inter_vlan": { "last_audited": null, "finding_count": 0 },
+    "network.wifi": { "last_audited": null, "finding_count": 0 },
+
+    "docker.isolation": { "last_audited": null, "finding_count": 0 },
+    "docker.resources": { "last_audited": null, "finding_count": 0 },
+    "docker.compose": { "last_audited": null, "finding_count": 0 },
+    "docker.healthchecks": { "last_audited": null, "finding_count": 0 },
+    "docker.images": { "last_audited": null, "finding_count": 0 },
+
+    "lxc.security": { "last_audited": null, "finding_count": 0 },
+    "lxc.resources": { "last_audited": null, "finding_count": 0 },
+    "lxc.kernel": { "last_audited": null, "finding_count": 0 },
+    "lxc.template_compliance": { "last_audited": null, "finding_count": 0 },
+
+    "proxmox.storage": { "last_audited": null, "finding_count": 0 },
+    "proxmox.backup": { "last_audited": null, "finding_count": 0 },
+    "proxmox.cluster": { "last_audited": null, "finding_count": 0 },
+    "proxmox.updates": { "last_audited": null, "finding_count": 0 },
+
+    "iac.terraform_drift": { "last_audited": null, "finding_count": 0 },
+    "iac.ansible_drift": { "last_audited": null, "finding_count": 0 },
+
+    "services.traefik": { "last_audited": null, "finding_count": 0 },
+    "services.vault": { "last_audited": null, "finding_count": 0 },
+    "services.adguard": { "last_audited": null, "finding_count": 0 },
+    "services.monitoring": { "last_audited": null, "finding_count": 0 },
+
+    "cross_cutting.spof": { "last_audited": null, "finding_count": 0 },
+    "cross_cutting.secrets": { "last_audited": null, "finding_count": 0 },
+    "cross_cutting.access_control": { "last_audited": null, "finding_count": 0 },
+    "cross_cutting.disaster_recovery": { "last_audited": null, "finding_count": 0 }
+  }
+}

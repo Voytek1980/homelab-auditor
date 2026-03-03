@@ -1,0 +1,14 @@
+# Claude Code local state
+.claude/memory/
+.claude/todos/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
+*~
+.idea/
+.vscode/

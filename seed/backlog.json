@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": 1,
+      "area": "docker.resources",
+      "title": "Audit Docker memory limits across all containers on LXC 203 and 204",
+      "priority": 2,
+      "status": "pending",
+      "added_date": "2026-03-02",
+      "notes": "Initial seed — containers may be running without memory limits"
+    },
+    {
+      "id": 2,
+      "area": "services.traefik",
+      "title": "Check TLS certificate expiry dates for all *.voytek-homelab.com domains",
+      "priority": 2,
+      "status": "pending",
+      "added_date": "2026-03-02",
+      "notes": "Initial seed — Cloudflare DNS-01 auto-renewal should work but needs verification"
+    },
+    {
+      "id": 3,
+      "area": "proxmox.backup",
+      "title": "Verify Proxmox backup schedule and test restore procedure",
+      "priority": 1,
+      "status": "pending",
+      "added_date": "2026-03-02",
+      "notes": "Initial seed — backups are critical, need to verify PBS on PVE2 is working"
+    },
+    {
+      "id": 4,
+      "area": "cross_cutting.spof",
+      "title": "Map single points of failure in the infrastructure",
+      "priority": 3,
+      "status": "pending",
+      "added_date": "2026-03-02",
+      "notes": "Initial seed — identify what happens if LXC 204 (services) goes down"
+    },
+    {
+      "id": 5,
+      "area": "docker.healthchecks",
+      "title": "Audit healthcheck coverage in all Docker Compose stacks",
+      "priority": 3,
+      "status": "pending",
+      "added_date": "2026-03-02",
+      "notes": "Initial seed — some containers may lack healthchecks"
+    }
+  ]
+}
