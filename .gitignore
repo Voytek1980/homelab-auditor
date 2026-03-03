@@ -12,3 +12,6 @@ Thumbs.db
 *~
 .idea/
 .vscode/
+
+# Notion MCP config (contains API token)
+.mcp.json

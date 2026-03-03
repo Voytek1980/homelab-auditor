@@ -10,10 +10,11 @@
       "WebFetch",
       "WebSearch",
       "Task",
-      "TodoWrite"
+      "TodoWrite",
+      "mcp__notion__*"
     ],
     "deny": []
   },
   "language": "Polish",
-  "enableAllProjectMcpServers": false
+  "enableAllProjectMcpServers": true
 }

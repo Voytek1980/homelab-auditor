@@ -219,3 +219,23 @@ curl -sf -d "CRITICAL: <message>" \
      -H "Tags: rotating_light" \
      "https://ntfy.voytek-homelab.com/homelab-alerts"
 ```
+
+---
+
+## Notion Reporting
+
+Audit sweep results are automatically reported to Notion for visibility.
+
+### Configuration
+- **MCP config:** `.mcp.json` (deployed by Ansible, gitignored — contains API token)
+- **Notion parent page:** `31886bac-70f5-814f-9aac-cb5c8f4910e5` ("Homelab Auditor")
+- **Tool:** `notion-create-pages` with `parent.page_id`
+
+### Report Format
+Each sweep creates a child page titled: `YYYY-MM-DD — Area1, Area2 [highest severity]`
+
+Contents: findings summary, coverage state, backlog changes, next steps.
+
+### When to Report
+- **YES:** After automated sweeps (`audit-sweep`)
+- **NO:** During interactive debugging sessions
