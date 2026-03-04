@@ -154,13 +154,65 @@ curl -sf -d "CRITICAL: <finding title>. Host: <host>. See /opt/auditor/findings/
 - `cross_cutting.access_control` — SSH keys, sudo policies, user audit
 - `cross_cutting.disaster_recovery` — Recovery procedures, RTO/RPO
 
+### 5. Publikuj findings do Notion
+
+Po zapisaniu findings lokalnie, opublikuj każdy nowy finding do bazy Notion "Findings":
+
+**Database:** data_source_id = `2ddb3b65-ccd9-40c4-a03b-4f7614dd7825`
+**Parent page:** Homelab Auditor (`31886bac-70f5-814f-9aac-cb5c8f4910e5`)
+
+Dla każdego findinga użyj `notion-create-pages` z tymi properties:
+
+| Property | Wartość |
+|----------|---------|
+| Tytuł | Krótki, konkretny opis problemu (po polsku) |
+| Severity | `S1-krytyczny` / `S2-wysoki` / `S3-średni` / `S4-niski` |
+| Status | `Nowy` |
+| Host | Nazwa hosta: databases, services, dev-hq, etc. |
+| Obszar | Kategoria: Docker, SSH, Firewall, TLS/SSL, Backup, Monitoring, Uprawnienia, Sieć, Zasoby, Aktualizacje, Logi, Secrets |
+| date:Data:start | `YYYY-MM-DD` (dzisiejsza data) |
+
+Treść strony (content) — 4 sekcje:
+
+```markdown
+## Opis problemu
+
+Co dokładnie jest nie tak i dlaczego to ważne.
+
+## Dowody
+
+```bash
+$ komenda która pokazuje problem
+konkretny output
+```
+
+## Naprawa
+
+1. Krok 1
+2. Krok 2
+
+## Weryfikacja
+
+```bash
+$ komenda sprawdzająca czy naprawione
+oczekiwany output
+```
+```
+
+**Zasady:**
+- Pisz po polsku (terminy techniczne po angielsku)
+- Tytuł max 60 znaków, konkretny (nie "Problem z X" tylko "Redis bez hasła na LAN")
+- Dowody = dosłowny output komend, nie opis
+- Naprawa = krok po kroku, copy-paste ready
+- Jeden finding = jeden konkretny problem (nie grupuj)
+- Publikuj TYLKO podczas `audit-sweep`, NIE podczas sesji interaktywnych
+
 ## Infrastructure Access
 
 SSH is pre-configured via `~/.ssh/config`:
 ```bash
 ssh databases         # 192.168.1.58 — PostgreSQL, Redis, Qdrant
 ssh services          # 192.168.1.59 — Traefik, n8n, Vault, etc.
-ssh claude-monitor    # 192.168.1.61 — Claude Code Headless
 ssh pve0              # 192.168.1.7  — Proxmox host
 ```
 
@@ -172,41 +224,3 @@ Always end each audit session with a summary showing:
 3. Coverage map changes
 4. Backlog changes
 5. Recommendations for next session
-
-### 5. Report to Notion
-After all findings are recorded and state is updated, create a summary page in Notion:
-
-1. Create a child page under the **Homelab Auditor** parent page (ID: `31886bac-70f5-814f-9aac-cb5c8f4910e5`)
-2. Title format: `YYYY-MM-DD — Area1, Area2 [highest severity]`
-   - Example: `2026-03-04 — Network Security, Docker Health [S2]`
-3. Page content structure:
-
-```markdown
-## Summary
-- **Date:** YYYY-MM-DD HH:MM
-- **Areas audited:** <list>
-- **Highest severity:** S1/S2/S3/S4
-
-## Findings
-### <Finding title> [severity]
-- **Host:** <host>
-- **Evidence:** <brief evidence>
-- **Fix:** <remediation>
-(repeat for each finding)
-
-## Coverage State
-- Areas checked this session: <count>/28
-- Total coverage: <count> areas audited at least once out of 28
-- Oldest gap: <area> (last audited <date> or never)
-
-## Backlog Changes
-- Added: <new items>
-- Completed: <resolved items>
-- Pending: <count> items remaining
-
-## Next Steps
-- <recommended follow-ups>
-```
-
-4. Use Notion MCP tools: `notion-create-pages` with parent `page_id: 31886bac-70f5-814f-9aac-cb5c8f4910e5`
-5. Only report during automated sweeps (`audit-sweep`), NOT during interactive sessions
