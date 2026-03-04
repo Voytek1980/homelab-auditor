@@ -206,7 +206,7 @@ oczekiwany output
 - Dowody = dosłowny output komend, nie opis
 - Naprawa = krok po kroku, copy-paste ready
 - Jeden finding = jeden konkretny problem (nie grupuj)
-- Publikuj TYLKO podczas `audit-sweep`, NIE podczas sesji interaktywnych
+- Publikuj do Notion po KAŻDYM audycie (interaktywnym i automated sweep)
 
 ## Infrastructure Access
 
