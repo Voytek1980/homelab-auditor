@@ -171,6 +171,7 @@ Dla każdego findinga użyj `notion-create-pages` z tymi properties:
 | Host | Nazwa hosta: databases, services, dev-hq, etc. |
 | Obszar | Kategoria: Docker, SSH, Firewall, TLS/SSL, Backup, Monitoring, Uprawnienia, Sieć, Zasoby, Aktualizacje, Logi, Secrets |
 | date:Data:start | `YYYY-MM-DD` (dzisiejsza data) |
+| Opis | 1-2 zdania: co jest nie tak i jaki jest wpływ. Widoczne w tabeli bez otwierania strony. |
 
 Treść strony (content) — 4 sekcje:
 
