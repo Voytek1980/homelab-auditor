@@ -2,12 +2,12 @@
 
 AI-powered infrastructure auditor for homelab. Combines deterministic evidence collection with exploratory AI auditing.
 
-## This Host (LXC 504 - dev-monitoring)
+## This Host (LXC 505 - dev-projects)
 
-- **IP:** 192.168.1.34
+- **IP:** 192.168.1.35
 - **SSH:** Port 2222
 - **User:** `voytek` (sudo NOPASSWD:ALL)
-- **Purpose:** Homelab auditor — evidence collection, signal monitoring, audit sweeps
+- **Purpose:** Primary dev container — all projects consolidated here, including auditor
 
 ### Running Audits
 
@@ -68,8 +68,8 @@ audit-journal                      # audit history
 | 203 | databases | 192.168.1.58 | 2222 | PostgreSQL, Redis, Qdrant + agents |
 | 204 | services | 192.168.1.59 | 2222 | Traefik, n8n, Vault, AdGuard, Homarr, ntfy, Beszel Hub, Uptime Kuma, Tugtainer, Dozzle, Cloudflared |
 | 205 | claude-monitor | 192.168.1.61 | 2222 | Claude Code Headless + Monitor webapp |
-| **504** | **dev-monitoring** | **192.168.1.34** | **2222** | **This host — AI auditor** |
-| 500-506 | dev-* | 192.168.1.30-36 | 2222 | Dev environments (template v3) |
+| **505** | **dev-projects** | **192.168.1.35** | **2222** | **This host — all dev + AI auditor** |
+| 500 | dev-hq | 192.168.1.30 | 2222 | HQ IaC (on-demand) |
 
 ### Network Architecture
 
@@ -224,17 +224,43 @@ curl -sf -d "CRITICAL: <message>" \
 
 ## Notion Reporting
 
-Audit sweep results are automatically reported to Notion for visibility.
+Audit sweep results are reported to Notion via the `notion` MCP server (`.mcp.json`).
 
 ### Configuration
-- **MCP config:** `.mcp.json` (deployed by Ansible, gitignored — contains API token)
-- **Notion parent page:** `31886bac-70f5-814f-9aac-cb5c8f4910e5` ("Homelab Auditor")
-- **Tool:** `notion-create-pages` with `parent.page_id`
+- **MCP config:** `.mcp.json` (gitignored — contains Notion API token)
+- **Findings database ID:** `657a5c98-2d5a-4d26-82bc-e72eb052e43f`
+- **Parent page (Homelab Auditor):** `31886bac-70f5-814f-9aac-cb5c8f4910e5`
 
-### Report Format
-Each sweep creates a child page titled: `YYYY-MM-DD — Area1, Area2 [highest severity]`
+### CRITICAL: How to Report Findings
 
-Contents: findings summary, coverage state, backlog changes, next steps.
+Each finding MUST be inserted as a **row in the Findings database**, NOT as a child page under the parent page.
+
+Use `notion-create-pages` with `database_id` (not `parent.page_id`):
+
+```json
+{
+  "database_id": "657a5c98-2d5a-4d26-82bc-e72eb052e43f",
+  "pages": [{
+    "properties": {
+      "Tytuł": "Finding title",
+      "Severity": "S1-krytyczny",
+      "Host": "services",
+      "Obszar": "Docker",
+      "Status": "Nowy",
+      "Opis": "Short description of the finding",
+      "date:Data:start": "2026-03-07",
+      "date:Data:is_datetime": 0
+    },
+    "content": "## Opis problemu\n...\n## Dowody\n...\n## Naprawa\n...\n## Weryfikacja\n..."
+  }]
+}
+```
+
+**Property values** (must match exactly):
+- **Severity:** `S1-krytyczny`, `S2-wysoki`, `S3-średni`, `S4-niski`
+- **Host:** `databases`, `services`, `dev-hq`, `gh-runner`, `pve0`
+- **Obszar:** `Docker`, `SSH`, `Firewall`, `TLS/SSL`, `Backup`, `Monitoring`, `Uprawnienia`, `Sieć`, `Zasoby`, `Aktualizacje`, `Logi`, `Secrets`
+- **Status:** `Nowy` (always for new findings)
 
 ### When to Report
 - **YES:** After automated sweeps (`audit-sweep`)

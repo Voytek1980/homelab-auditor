@@ -13,7 +13,7 @@ set -euo pipefail
 
 AUDITOR_DIR="/opt/auditor"
 LOGS_DIR="${AUDITOR_DIR}/logs"
-REPO_DIR="/home/voytek/repos/homelab-auditor"
+REPO_DIR="/home/voytek/repos/2brain/projects/homelab-auditor"
 TIMESTAMP=$(date +%Y-%m-%dT%H:%M:%S)
 LOG_PREFIX="[$TIMESTAMP]"
 
